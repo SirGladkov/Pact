@@ -5,11 +5,11 @@
                 <img src="../megia/Vector.svg"/>
                 <div class="sidebarSearch">
                     <img src="../megia/Lupa.svg">
-                    <input class="sidebarSearchText" type="text" placeholder="Поиск">
+                    <input @input="onSearchChange" class="sidebarSearchText" type="text" placeholder="Поиск">
                 </div>
             </div>
             <div class="userScrolConteiner">
-                <div class="user" v-bind:key="user.id" v-for="user in users">
+                <div class="user" v-bind:key="user.id" v-for="user in filterableChatInfo">
                     <img class="userImg" src="../megia/img1.jpg"/>
                     <div class="userConteiner">
                         <div>
@@ -27,40 +27,44 @@
   </div>
 </template>
 
-<script>
-export default {
-    data(){
-        return {
-            users:[
+<script setup type="module">
+
+import {computed, reactive, ref} from "vue";
+
+const users = [
                 {id:1, title:'Чат 1', body: 'Текст 1',quantity: '5' },
                 {id:2, title:'Чат 2', body: 'Текст 2',quantity: '3' },
                 {id:3, title:'Чат 3', body: 'Текст 3',quantity: '41' },  
                 {id:4, title:'Чат 4', body: 'Текст 4',quantity: '10' },
-                {id:1, title:'Чат 1', body: 'Текст 1',quantity: '5' },
-                {id:2, title:'Чат 2', body: 'Текст 2',quantity: '3' },
-                {id:3, title:'Чат 3', body: 'Текст 3',quantity: '41' },  
-                {id:4, title:'Чат 4', body: 'Текст 4',quantity: '10' },
-                {id:1, title:'Чат 1', body: 'Текст 1',quantity: '5' },
-                {id:2, title:'Чат 2', body: 'Текст 2',quantity: '3' },
-                {id:3, title:'Чат 3', body: 'Текст 3',quantity: '41' },  
-                {id:4, title:'Чат 4', body: 'Текст 4',quantity: '10' },
-                {id:1, title:'Чат 1', body: 'Текст 1',quantity: '5' },
-                {id:2, title:'Чат 2', body: 'Текст 2',quantity: '3' },
-                {id:3, title:'Чат 3', body: 'Текст 3',quantity: '41' },  
-                {id:4, title:'Чат 4', body: 'Текст 4',quantity: '10' },
-                {id:1, title:'Чат 1', body: 'Текст 1',quantity: '5' },
-                {id:2, title:'Чат 2', body: 'Текст 2',quantity: '3' },
-                {id:3, title:'Чат 3', body: 'Текст 3',quantity: '41' },  
-                {id:4, title:'Чат 4', body: 'Текст 4',quantity: '10' },
-                {id:1, title:'Чат 1', body: 'Текст 1',quantity: '5' },
-                {id:2, title:'Чат 2', body: 'Текст 2',quantity: '3' },
-                {id:3, title:'Чат 3', body: 'Текст 3',quantity: '41' },  
-                {id:4, title:'Чат 4', body: 'Текст 4',quantity: '10' },
-            ],
-            
-        }
-    }
-}
+                {id:5, title:'Чат 1', body: 'Текст 1',quantity: '5' },
+                {id:6, title:'Чат 2', body: 'Текст 2',quantity: '3' },
+                {id:7, title:'Чат 3', body: 'Текст 3',quantity: '41' },  
+                {id:8, title:'Чат 4', body: 'Текст 4',quantity: '10' },
+                {id:9, title:'Чат 1', body: 'Текст 1',quantity: '5' },
+                {id:21, title:'Чат 2', body: 'Текст 2',quantity: '3' },
+                {id:32, title:'Чат 3', body: 'Текст 3',quantity: '41' },  
+                {id:44, title:'Чат 4', body: 'Текст 4',quantity: '10' },
+                {id:13, title:'Чат 1', body: 'Текст 1',quantity: '5' },
+                {id:25, title:'Чат 2', body: 'Текст 2',quantity: '3' },
+                {id:36, title:'Чат 3', body: 'Текст 3',quantity: '41' },  
+                {id:47, title:'Чат 4', body: 'Текст 4',quantity: '10' },
+                {id:18, title:'Чат 1', body: 'Текст 1',quantity: '5' },
+                {id:29, title:'Чат 2', body: 'Текст 2',quantity: '3' },
+                {id:31, title:'Чат 3', body: 'Текст 3',quantity: '41' },  
+                {id:42, title:'Чат 4', body: 'Текст 4',quantity: '10' },
+                {id:143, title:'Чат 1', body: 'Текст 1',quantity: '5' },
+                {id:24, title:'Чат 2', body: 'Текст 2',quantity: '3' },
+                {id:35, title:'Чат 3', body: 'Текст 3',quantity: '41' },  
+                {id:46, title:'Чат 4', body: 'Текст 4',quantity: '10' },
+            ]
+const search=ref('')
+
+    const onSearchChange=(value)=>{
+    search.value=value.target.value;
+  }
+
+
+const filterableChatInfo=computed(()=>users.filter((chatItem)=>chatItem.title.includes(search.value))) 
 </script>
 
 <style lang="scss">

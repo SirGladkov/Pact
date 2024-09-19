@@ -9,7 +9,6 @@
 import ChatWindow from './components/ChatWindow.vue';
 import UserList from './components/UserList.vue';
 
-
 export default {
     components:{
         UserList,
