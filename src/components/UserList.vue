@@ -1,5 +1,4 @@
 <template>
-  <div>
     <div class="sidebarAll">
             <div class="sidebar">
                 <img src="../megia/Vector.svg"/>
@@ -24,47 +23,20 @@
                 </div>
             </div>    
         </div>
-  </div>
 </template>
 
-<script setup type="module">
+<script setup >
 
-import {computed, reactive, ref} from "vue";
+import {computed, reactive, ref, onUpdated} from "vue";
 
-const users = [
-                {id:1, title:'Чат 1', body: 'Текст 1',quantity: '5' },
-                {id:2, title:'Чат 2', body: 'Текст 2',quantity: '3' },
-                {id:3, title:'Чат 3', body: 'Текст 3',quantity: '41' },  
-                {id:4, title:'Чат 4', body: 'Текст 4',quantity: '10' },
-                {id:5, title:'Чат 1', body: 'Текст 1',quantity: '5' },
-                {id:6, title:'Чат 2', body: 'Текст 2',quantity: '3' },
-                {id:7, title:'Чат 3', body: 'Текст 3',quantity: '41' },  
-                {id:8, title:'Чат 4', body: 'Текст 4',quantity: '10' },
-                {id:9, title:'Чат 1', body: 'Текст 1',quantity: '5' },
-                {id:21, title:'Чат 2', body: 'Текст 2',quantity: '3' },
-                {id:32, title:'Чат 3', body: 'Текст 3',quantity: '41' },  
-                {id:44, title:'Чат 4', body: 'Текст 4',quantity: '10' },
-                {id:13, title:'Чат 1', body: 'Текст 1',quantity: '5' },
-                {id:25, title:'Чат 2', body: 'Текст 2',quantity: '3' },
-                {id:36, title:'Чат 3', body: 'Текст 3',quantity: '41' },  
-                {id:47, title:'Чат 4', body: 'Текст 4',quantity: '10' },
-                {id:18, title:'Чат 1', body: 'Текст 1',quantity: '5' },
-                {id:29, title:'Чат 2', body: 'Текст 2',quantity: '3' },
-                {id:31, title:'Чат 3', body: 'Текст 3',quantity: '41' },  
-                {id:42, title:'Чат 4', body: 'Текст 4',quantity: '10' },
-                {id:143, title:'Чат 1', body: 'Текст 1',quantity: '5' },
-                {id:24, title:'Чат 2', body: 'Текст 2',quantity: '3' },
-                {id:35, title:'Чат 3', body: 'Текст 3',quantity: '41' },  
-                {id:46, title:'Чат 4', body: 'Текст 4',quantity: '10' },
-            ]
+const props = defineProps([])
 const search=ref('')
 
-    const onSearchChange=(value)=>{
+const onSearchChange=(value)=>{
     search.value=value.target.value;
-  }
+}
 
-
-const filterableChatInfo=computed(()=>users.filter((chatItem)=>chatItem.title.includes(search.value))) 
+const filterableChatInfo=computed(()=>props.users?.filter((chatItem)=>chatItem.title.includes(search.value))) 
 </script>
 
 <style lang="scss">
@@ -97,7 +69,7 @@ const filterableChatInfo=computed(()=>users.filter((chatItem)=>chatItem.title.in
     size: 20px;
 }
 .user{
-    width: 370px;
+    max-width: 370px;
     background: #FFFFFF;
     padding: 12px 16px 12px 16px;
     display: flex;
@@ -115,7 +87,7 @@ const filterableChatInfo=computed(()=>users.filter((chatItem)=>chatItem.title.in
 }
 .userScrolConteiner{
     overflow-y: scroll;
-    height: 800px;
+    height: 840px;
 }
 .userConteiner{
     display: flex;

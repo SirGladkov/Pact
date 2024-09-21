@@ -66,11 +66,12 @@ export default {
     background: #FFFFFF;
     height: 56px;
     border-bottom: 1px solid #D9DCE0;
+    border-left: 1px solid #D9DCE0;
     padding: 8px 16px 8px 16px;
     display: flex;
     justify-content: space-between;
     position: fixed;
-    left: 371px;
+    left: 370px;
     right: 0px;
 }
 .mainTopBarUser{
@@ -158,7 +159,9 @@ export default {
     gap: 4px;
     color: black;
 }
-
+.mainMessage{
+    position: relative;
+}
 .mainMessageInputBar{
     background: #F5F5F5;
     height: 56px;
@@ -167,11 +170,8 @@ export default {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin: 0px 32px 0px 32px;
-    position: fixed;
-    bottom: 16px;
-    right: 0px;
-    left: 371px;
+    margin: 0px 32px 24px 32px;
+    position: sticky;
 }
 .mainMessageInputBarText{
     display: flex;
