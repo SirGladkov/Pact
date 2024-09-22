@@ -5,11 +5,15 @@
                 <img src="../megia/Vector.svg"/>
                 <div class="sidebarSearch">
                     <img src="../megia/Lupa.svg">
-                    <input class="sidebarSearchText" type="text" placeholder="Поиск">
+                    <input
+                    @input="onSearchChange"
+                    class="sidebarSearchText" 
+                    type="text" 
+                    placeholder="Поиск">
                 </div>
             </div>
-            <div class="userScrolConteiner">
-                <div class="user" v-bind:key="user.id" v-for="user in users">
+            <div class="userScrolConteiner" @keyup.esc="onChangeSelectorMessage">
+                <div :class="[user.id===selectorUser.id ? 'user selected' : 'user']"  v-bind:key="user.id" v-for="user in filterableChatInfo" @click="()=>onChangeSelectorUser(user)" >
                     <img class="userImg" src="../megia/img1.jpg"/>
                     <div class="userConteiner">
                         <div>
@@ -23,43 +27,35 @@
                     </div>
                 </div>
             </div>    
-        </div>
-  </div>
+    </div>
+    </div>  
 </template>
 
-<script>
-export default {
-    data(){
-        return {
-            users:[
-                {id:1, title:'Чат 1', body: 'Текст 1',quantity: '5' },
-                {id:2, title:'Чат 2', body: 'Текст 2',quantity: '3' },
-                {id:3, title:'Чат 3', body: 'Текст 3',quantity: '41' },  
-                {id:4, title:'Чат 4', body: 'Текст 4',quantity: '10' },
-                {id:1, title:'Чат 1', body: 'Текст 1',quantity: '5' },
-                {id:2, title:'Чат 2', body: 'Текст 2',quantity: '3' },
-                {id:3, title:'Чат 3', body: 'Текст 3',quantity: '41' },  
-                {id:4, title:'Чат 4', body: 'Текст 4',quantity: '10' },
-                {id:1, title:'Чат 1', body: 'Текст 1',quantity: '5' },
-                {id:2, title:'Чат 2', body: 'Текст 2',quantity: '3' },
-                {id:3, title:'Чат 3', body: 'Текст 3',quantity: '41' },  
-                {id:4, title:'Чат 4', body: 'Текст 4',quantity: '10' },
-                {id:1, title:'Чат 1', body: 'Текст 1',quantity: '5' },
-                {id:2, title:'Чат 2', body: 'Текст 2',quantity: '3' },
-                {id:3, title:'Чат 3', body: 'Текст 3',quantity: '41' },  
-                {id:4, title:'Чат 4', body: 'Текст 4',quantity: '10' },
-                {id:1, title:'Чат 1', body: 'Текст 1',quantity: '5' },
-                {id:2, title:'Чат 2', body: 'Текст 2',quantity: '3' },
-                {id:3, title:'Чат 3', body: 'Текст 3',quantity: '41' },  
-                {id:4, title:'Чат 4', body: 'Текст 4',quantity: '10' },
-                {id:1, title:'Чат 1', body: 'Текст 1',quantity: '5' },
-                {id:2, title:'Чат 2', body: 'Текст 2',quantity: '3' },
-                {id:3, title:'Чат 3', body: 'Текст 3',quantity: '41' },  
-                {id:4, title:'Чат 4', body: 'Текст 4',quantity: '10' },
-            ],
-            
-        }
+<script setup>
+import {computed, reactive, ref, onUpdated,defineProps,defineModel} from "vue";
+
+const {users} = defineProps({
+    users:{
+        type: Array,
+        required: true,
     }
+})
+
+const search=ref('')
+
+const onSearchChange=(value)=>{
+    search.value=value.target.value;
+}
+
+const filterableChatInfo=computed(()=>users?.filter((chatItem)=>chatItem.title.includes(search.value)))
+
+const selectorUser = defineModel()
+const onChangeSelectorUser=(users)=> {
+    selectorUser.value=users;
+}
+
+const getActive = (user)=>{
+    return `user ${user.id===selectorUser.id ? 'selected' : ''}`
 }
 </script>
 
@@ -92,12 +88,16 @@ export default {
     float: right;
     size: 20px;
 }
+.selected{
+    background: #F5F5F5 !important;
+}
 .user{
     width: 370px;
     background: #FFFFFF;
     padding: 12px 16px 12px 16px;
     display: flex;
     justify-content: space-between;
+    cursor:pointer
 }
 .user:hover{
     background: #F5F5F5;

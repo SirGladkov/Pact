@@ -1,10 +1,10 @@
 <template>
-    <div class="main">
-            <div class="mainTopBar">
+    <div class="main" v-if="user?.title">
+            <div class="mainTopBar" >
                 <div class="mainTopBarUser">
                     <img class="mainTopBarUserImg" src="../megia/img1.jpg"/>
                     <div class="mainTopBarUserInfo">
-                        <h3> Чат 2</h3>
+                        <h3>{{ user?.title }}</h3>
                         <p>был в сети 15 мин назад</p>
                     </div>
                 </div>
@@ -14,25 +14,27 @@
                     <img src="../megia/Spred.svg">
                 </div>
             </div>
-            <div class="mainDialog">
+            <div class="mainDialog" >
                 <div class="Date" >
                     <span class="mainDialogDate">Сегодня</span>
                 </div>
-                <div class="MyMessage">
-                    <div class="mainDialogConteiner-MyMessege">
-                        <p>Какой-то мой текст</p>
-                        <div class="mainDialogConteinerInfo-MyMessage">
-                            <p>14:01</p>
-                            <img src="../megia/Daw.svg">
+                <div :key="message.id" v-for="(message, index) in user.messages">
+                    <div class="MyMessage" v-if="index%2==0">
+                        <div class="mainDialogConteiner-MyMessege">
+                            <p>{{message.message}}</p>
+                            <div class="mainDialogConteinerInfo-MyMessage">
+                                <p>{{ message.time }}</p>
+                                <img src="../megia/Daw.svg">
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="OtherMessage">
-                    <div class="mainDialogConteiner-OtherMessage">
-                        <p>Какой-то чужой текст</p>
-                        <div class="mainDialogConteinerInfo-OtherMessage">
-                            <p>14:01</p>
-                            <img src="../megia/DawBlack.svg">
+                    <div class="OtherMessage" v-else>
+                        <div class="mainDialogConteiner-OtherMessage">
+                            <p>{{message.message}}</p>
+                            <div class="mainDialogConteinerInfo-OtherMessage">
+                                <p>{{ message.time }}</p>
+                                <img src="../megia/DawBlack.svg">
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -41,26 +43,71 @@
                 <div class="mainMessageInputBar">
                     <div class="mainMessageInputBarText" >
                         <img src="../megia/Smile.svg">
-                        <input 
+                        <input
+                        :value="search"
+                        @input="onSearchMessage"
+                        @keyup.enter="onChangeSelectorMessage"
                         type="text" 
                         placeholder="Напишите сообщение">
                     </div>
-                    <img src="../megia/Enter.svg">
+                    <div @click="()=>onChangeSelectorMessage()">
+                        <img src="../megia/Enter.svg">
+                    </div>
                 </div>
             </div>
         </div>
+        <div class="mainNone" v-else>
+            <h3>Выберите кому бы хотели написать</h3>
+        </div>
 </template>
 
-<script>
-export default {
+<script setup>
+import {computed, reactive, ref, onUpdated,defineProps,defineModel} from "vue";
+
+const {user} = defineProps({
+    user:{
+        type: Object,
+        required: true,
+    }
+})
+const search=ref('')
+const selectorUser=defineModel()
+
+const onSearchMessage=(value)=>{
+    search.value=value.target.value;
 
 }
+const onChangeSelectorMessage=()=> {
+    if (search.value.trim()===''){
+        return
+    }
+    selectorUser.value={...selectorUser.value, messages:[...selectorUser.value.messages, {message:search.value, time:'10:00',id:Date.now()}]};
+    search.value='';
+}
+
 </script>
 
 <style lang="scss">
 .main{
     background: #8BABD8;
     width: 100vw;
+}
+.mainNone{
+    background: #8BABD8;
+    width: 100vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    h3 {
+        text-align: center;
+        border-radius: 12px;
+        background: rgba(61, 112, 184, 0.6);
+        color: rgba(255, 255, 255, 1);
+        padding: 4px 12px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        word-break: break-all;
+    }
 }
 .mainTopBar{
     background: #FFFFFF;
@@ -107,6 +154,7 @@ export default {
     gap:24px;
     height: 760px;
     overflow-y: scroll;
+    margin-bottom: 16px;
 }
 .mainDialogDate{
     display: flex;
@@ -138,12 +186,22 @@ export default {
     background: rgba(120, 227, 120, 1);
     padding: 4px 12px 4px 12px;
     max-width: 285px;
+    p {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        word-break: break-all;
+    }
 }
 .mainDialogConteiner-OtherMessage{
     border-radius: 12px;
     background: #FFFFFF;
     padding: 4px 12px 4px 12px;
     max-width: 285px;
+    p {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        word-break: break-all;
+    }
 }
 
 .mainDialogConteinerInfo-MyMessage{
@@ -177,6 +235,7 @@ export default {
     display: flex;
     align-items: center;
     gap: 16px;
+    width: 95%;
     input{
     border: none;
     outline: none;
@@ -184,6 +243,7 @@ export default {
     float: right;
     font-size: 16px;
     color: #011627;
+    width: 95%;
     }
 }
 </style>
