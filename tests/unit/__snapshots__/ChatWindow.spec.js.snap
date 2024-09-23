@@ -1,0 +1,128 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ChatWindow.vue renders correctly with user data 1`] = `
+<div
+  class="main"
+>
+  <div
+    class="mainTopBar"
+  >
+    <div
+      class="mainTopBarUser"
+    >
+      <img
+        class="mainTopBarUserImg"
+        src="test-file-stub"
+      />
+      <div
+        class="mainTopBarUserInfo"
+      >
+        <h3>
+          Чат 1
+        </h3>
+        <p>
+          был в сети 15 мин назад
+        </p>
+      </div>
+    </div>
+    <div
+      class="mainTopBarIcon"
+    >
+      <img
+        src="test-file-stub"
+      />
+      <img
+        src="test-file-stub"
+      />
+      <img
+        src="test-file-stub"
+      />
+    </div>
+  </div>
+  <div
+    class="mainDialog"
+  >
+    <div
+      class="Date"
+    >
+      <span
+        class="mainDialogDate"
+      >
+        Сегодня
+      </span>
+    </div>
+    
+    <div>
+      <div
+        class="MyMessage"
+      >
+        <div
+          class="mainDialogConteiner-MyMessege"
+        >
+          <p>
+            Сообщение 1
+          </p>
+          <div
+            class="mainDialogConteinerInfo-MyMessage"
+          >
+            <p>
+              20:43
+            </p>
+            <img
+              src="test-file-stub"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+    <div>
+      <div
+        class="OtherMessage"
+      >
+        <div
+          class="mainDialogConteiner-OtherMessage"
+        >
+          <p>
+            Сообщение 2
+          </p>
+          <div
+            class="mainDialogConteinerInfo-OtherMessage"
+          >
+            <p>
+              20:44
+            </p>
+            <img
+              src="test-file-stub"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+    
+  </div>
+  <div
+    class="mainMessage"
+  >
+    <div
+      class="mainMessageInputBar"
+    >
+      <div
+        class="mainMessageInputBarText"
+      >
+        <img
+          src="test-file-stub"
+        />
+        <input
+          placeholder="Напишите сообщение"
+          type="text"
+        />
+      </div>
+      <div>
+        <img
+          src="test-file-stub"
+        />
+      </div>
+    </div>
+  </div>
+</div>
+`;

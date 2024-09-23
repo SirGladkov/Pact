@@ -73,9 +73,12 @@ const { user } = defineProps({
 
 // Local state
 const newMessage = ref('');
+const selectorUser = defineModel(); // Определяем модель
 
-// Model
-const selectorUser = defineModel();
+// Инициализация model
+if (!selectorUser.value) {
+    selectorUser.value = { messages: [] }; // Инициализация сообщений
+}
 
 // Methods
 const onChangeSelectorMessage = () => {
@@ -116,7 +119,8 @@ const loadMessagesFromLocalStorage = () => {
 // Обработчик нажатия на клавишу Esc
 const handleEscKey = (event) => {
     if (event.key === 'Escape' && user?.title) {
-        selectorUser.value = '';  // Сбрасываем выбранного пользователя
+        // Сбрасываем выбранного пользователя
+        selectorUser.value = '';  
     }
 };
 
