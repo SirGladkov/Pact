@@ -1,9 +1,8 @@
 <template>
-  <div>
     <div class="sidebarAll">
             <div class="sidebar">
                 <img src="../megia/Vector.svg"/>
-                <div class="sidebarSearch">
+                <div class="sidebarSearch" >
                     <img src="../megia/Lupa.svg">
                     <input
                     @input="onSearchChange"
@@ -28,7 +27,6 @@
                 </div>
             </div>    
     </div>
-    </div>  
 </template>
 
 <script setup>
@@ -63,6 +61,11 @@ const getActive = (user)=>{
 .sidebarAll{
     border-right: 1px solid #D9DCE0;
 }
+@media (max-width:770px){
+    
+    
+    
+}
 .sidebar{
     display: flex;
     align-items: center;
@@ -70,6 +73,13 @@ const getActive = (user)=>{
     width: 370px;
     padding: 16px 8px 16px 8px;
     background: #FFFFFF;
+    height: 56px;
+    @media (max-width:770px){
+        width: 80px;
+        transition: all 0.4s ease-out;
+        
+    }
+    
 }
 .sidebarSearch{
     background: #F5F5F5;
@@ -80,6 +90,9 @@ const getActive = (user)=>{
     display: flex;
     align-items: center;
     gap: 16px;
+    @media (max-width:770px){
+        display: none;
+    }
 }
 .sidebarSearchText{
     border: none;
@@ -97,7 +110,11 @@ const getActive = (user)=>{
     padding: 12px 16px 12px 16px;
     display: flex;
     justify-content: space-between;
-    cursor:pointer
+    cursor:pointer;
+    transition: all 0.3s ease-out;
+    @media (max-width:770px){
+        width: 80px;
+    }
 }
 .user:hover{
     background: #F5F5F5;
@@ -123,6 +140,9 @@ const getActive = (user)=>{
     align-items: center;
     justify-content: space-between;
     }
+    @media (max-width:770px){
+        display: none;
+    }
 }
 .userConteinerIcon {
     display: flex;
@@ -135,6 +155,9 @@ const getActive = (user)=>{
     height: 16px;
     size: 12px;
     padding: 6px;
+    @media (max-width:770px){
+        display: none;
+    }
     
 }
 </style>
